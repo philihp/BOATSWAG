@@ -20,7 +20,7 @@
 		<action path="/authenticate" type="com.philihp.boatswag.action.Authenticate">
 			<forward name="default" path="/authenticateGetMe.do" />
 			<forward name="facebook"
-				path="https://www.facebook.com/dialog/oauth?client_id=135113846608059&amp;scope=user_location,user_groups&amp;redirect_uri=http://localhost:8080/boatswag/authenticate.do"
+				path="https://www.facebook.com/dialog/oauth?client_id=135113846608059&amp;scope=user_location,user_groups&amp;redirect_uri=REDIRECT_URI"
 				redirect="true" />
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">

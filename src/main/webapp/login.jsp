@@ -10,9 +10,7 @@
 <body>
 
 	[
-	<logic:empty name="facebook">
 		<html:link action="/authenticate.do">Login</html:link>
-	</logic:empty>
 	]
 	
 	This is the Holy Ship Survivor page. You need to login.

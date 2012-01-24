@@ -63,7 +63,10 @@ public class Authenticate extends Action {
 			return mapping.findForward("default");
 		}
 		else {
-			return mapping.findForward("facebook");
+			ActionForward forward = mapping.findForward("facebook");
+			String path = forward.getPath();
+			path = path.replaceAll("REDIRECT_URI", Facebook.redirect_uri);
+			return new ActionForward(path,forward.getRedirect());
 		}
 	}
 

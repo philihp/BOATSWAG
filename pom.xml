@@ -19,6 +19,15 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<server>philihp.com</server>
+					<url>http://www.philihp.com:8080/manager</url>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -68,7 +77,8 @@
 			<id>EclipseLink Repo</id>
 			<url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo
 			</url>
-			<!-- use this for javax.persistence <snapshots> <enabled>true</enabled> </snapshots> -->
+			<!-- use this for javax.persistence <snapshots> <enabled>true</enabled> 
+				</snapshots> -->
 		</repository>
 	</repositories>
 
