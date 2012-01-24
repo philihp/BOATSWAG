@@ -32,7 +32,6 @@ public class AuthenticateGetGroups extends Action {
 			return mapping.findForward("authenticate");
 		} else {
 			String accessToken = (String) request.getSession().getAttribute("accessToken");
-			System.out.println("access token: " + accessToken);
 			URL url = new URL("https://graph.facebook.com/me/groups/?access_token=" + accessToken);
 			HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 			if (connection.getResponseCode() == 400) {

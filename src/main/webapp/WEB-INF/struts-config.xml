@@ -8,7 +8,13 @@
 		<form-bean name="nullForm" type="com.philihp.boatswag.form.NullForm" />
 	</form-beans>
 
-	<global-forwards />
+	<global-forwards>
+		<forward name="root" path="/" redirect="true" />
+		
+		<!-- index.jsp needs this to be global, but nobody else should use it.  -->
+		<!-- instead, forward to "root" which keeps the URL uncluttered -->
+		<forward name="board" path="/showBoard.do" redirect="false" />
+	</global-forwards>
 
 	<action-mappings>
 		<action path="/authenticate" type="com.philihp.boatswag.action.Authenticate">
@@ -19,18 +25,24 @@
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">
 			<forward name="default" path="/authenticateGetGroups.do" />
-			<forward name="authenticate" path="/authenticate.do" redirect="true" />
+			<forward name="authenticate" path="/authenticate.do"
+				redirect="true" />
 		</action>
-		<action path="/authenticateGetGroups" type="com.philihp.boatswag.action.AuthenticateGetGroups">
+		<action path="/authenticateGetGroups"
+			type="com.philihp.boatswag.action.AuthenticateGetGroups">
 			<forward name="default" path="/showBoard.do" redirect="true" />
-			<forward name="authenticate" path="/authenticate.do" redirect="true" />
+			<forward name="authenticate" path="/authenticate.do"
+				redirect="true" />
 		</action>
 		<action path="/authenticateLogout" type="com.philihp.boatswag.action.AuthenticateLogout">
 			<forward name="default" path="/showBoard.do" redirect="true" />
 		</action>
 
-		<action path="/showBoard" name="nullForm" type="com.philihp.boatswag.action.ShowBoard">
-			<forward name="default" path="/board.jsp" />
+		<action path="/showBoard" name="nullForm"
+			type="com.philihp.boatswag.action.ShowBoard">
+			<forward name="login" path="/login.jsp" />
+			<forward name="survivorNo" path="/survivorNo.jsp" />
+			<forward name="survivorYes" path="/survivorYes.jsp" />
 		</action>
 
 	</action-mappings>

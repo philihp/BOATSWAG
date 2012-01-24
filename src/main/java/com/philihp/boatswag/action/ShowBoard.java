@@ -18,19 +18,27 @@ public class ShowBoard extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
+
 		boolean isInSurvivors = false;
 		@SuppressWarnings("unchecked")
-		List<FacebookGroup> groups = (List<FacebookGroup>)request.getSession().getAttribute("groups");
-		for(FacebookGroup group : groups) {
-			if("298673206843160".equals(group.getId())) {
+		List<FacebookGroup> groups = (List<FacebookGroup>) request.getSession()
+				.getAttribute("groups");
+
+		if (groups == null) {
+			return mapping.findForward("login");
+		}
+		for (FacebookGroup group : groups) {
+			if ("298673206843160".equals(group.getId())) {
 				isInSurvivors = true;
 			}
 		}
-		
-		request.setAttribute("isInSurvivors", isInSurvivors);
-		
-		return mapping.findForward("default");
+
+		if (isInSurvivors) {
+			return mapping.findForward("survivorYes");
+		} else {
+			return mapping.findForward("survivorNo");
+		}
+
 	}
 
 }

@@ -24,8 +24,9 @@ public class AuthenticateLogout extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+
 		request.getSession().setAttribute("facebook", null);
+		request.getSession().setAttribute("groups", null);
 		request.getSession().setAttribute("accessToken", null);
 		request.getSession().setAttribute("accessExpires", null);
 

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Holy Graffiti</title>
+<title>#BOATSWAG</title>
 </head>
 <body>
 
@@ -13,20 +13,9 @@
 	<logic:empty name="facebook">
 		<html:link action="/authenticate.do">Login</html:link>
 	</logic:empty>
-	<logic:notEmpty name="facebook">
-		<bean:write name="facebook" property="firstName" />
-		(#<bean:write name="facebook" property="id" />)
-		<html:link action="/authenticateLogout.do">Logout</html:link>
-	</logic:notEmpty>
 	]
 	
-	<h2>Groups:</h2>
-	<logic:iterate name="groups" id="group">
-		<bean:write name="group" property="id" />
-	:
-	<bean:write name="group" property="name" />
-		<br />
-	</logic:iterate>
+	This is the Holy Ship Survivor page. You need to login.
 
 </body>
 </html>
