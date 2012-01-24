@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" 
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+
+	<form-beans>
+		<form-bean name="nullForm" type="com.philihp.boatswag.form.NullForm" />
+	</form-beans>
+
+	<global-forwards />
+
+	<action-mappings>
+		<action path="/authenticate" type="com.philihp.boatswag.action.Authenticate">
+			<forward name="default" path="/authenticateGetMe.do" />
+			<forward name="facebook"
+				path="https://www.facebook.com/dialog/oauth?client_id=135113846608059&amp;scope=user_location,user_groups&amp;redirect_uri=http://localhost:8080/boatswag/authenticate.do"
+				redirect="true" />
+		</action>
+		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">
+			<forward name="default" path="/authenticateGetGroups.do" />
+			<forward name="authenticate" path="/authenticate.do" redirect="true" />
+		</action>
+		<action path="/authenticateGetGroups" type="com.philihp.boatswag.action.AuthenticateGetGroups">
+			<forward name="default" path="/showBoard.do" redirect="true" />
+			<forward name="authenticate" path="/authenticate.do" redirect="true" />
+		</action>
+		<action path="/authenticateLogout" type="com.philihp.boatswag.action.AuthenticateLogout">
+			<forward name="default" path="/showBoard.do" redirect="true" />
+		</action>
+
+		<action path="/showBoard" name="nullForm" type="com.philihp.boatswag.action.ShowBoard">
+			<forward name="default" path="/board.jsp" />
+		</action>
+
+	</action-mappings>
+
+	<message-resources parameter="ApplicationResources" />
+
+</struts-config>
