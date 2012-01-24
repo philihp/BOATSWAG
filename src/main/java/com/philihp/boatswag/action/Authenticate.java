@@ -66,6 +66,8 @@ public class Authenticate extends Action {
 			ActionForward forward = mapping.findForward("facebook");
 			String path = forward.getPath();
 			path = path.replaceAll("REDIRECT_URI", Facebook.redirect_uri);
+			path = path.replaceAll("CLIENT_ID", Facebook.client_id);
+			path = path.replaceAll("CLIENT_SECRET", Facebook.client_secret);
 			return new ActionForward(path,forward.getRedirect());
 		}
 	}
