@@ -13,11 +13,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-public class FacebookGroupsDeserializer implements JsonDeserializer<FacebookGroups> {
+public class FacebookGroupsDeserializer implements
+		JsonDeserializer<FacebookGroups> {
 
 	@Override
-	public FacebookGroups deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext ctx)
-			throws JsonParseException {
+	public FacebookGroups deserialize(JsonElement json, Type typeOfT,
+			JsonDeserializationContext ctx) throws JsonParseException {
 		FacebookGroups groups = new FacebookGroups();
 
 		JsonObject obj = json.getAsJsonObject();
@@ -26,23 +27,16 @@ public class FacebookGroupsDeserializer implements JsonDeserializer<FacebookGrou
 			JsonObject dataObj = dataElement.getAsJsonObject();
 			FacebookGroup group = new FacebookGroup();
 			for (Map.Entry<String, JsonElement> entry : dataObj.entrySet()) {
-				switch (entry.getKey()) {
-				case "version":
+				if ("version".equals(entry.getKey()))
 					group.setVersion(entry.getValue().getAsInt());
-					break;
-				case "name":
+				else if ("name".equals(entry.getKey()))
 					group.setName(entry.getValue().getAsString());
-					break;
-				case "id":
+				else if ("id".equals(entry.getKey()))
 					group.setId(entry.getValue().getAsString());
-					break;
-				case "unread":
+				else if ("unread".equals(entry.getKey()))
 					group.setUnread(entry.getValue().getAsInt());
-					break;
-				case "bookmark_order":
+				else if ("bookmark_order".equals(entry.getKey()))
 					group.setBookmarkOrder(entry.getValue().getAsInt());
-					break;
-				}
 			}
 			groups.getGroups().add(group);
 		}
