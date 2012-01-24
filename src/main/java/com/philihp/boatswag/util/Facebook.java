@@ -1,7 +1,7 @@
 package com.philihp.boatswag.util;
 
 public class Facebook {
-	public static final String client_id = "135113846608059";
-	public static final String client_secret = "5b1ce9b6ef28d4553c8f4579533beb69";
-	public static final String redirect_uri = "http://philihp.com:8080/boatswag/authenticate.do";
+	public static final String client_id = "166098649149";
+	public static final String client_secret = "10598268fb6da5a672db069c81dfe787";
+	public static final String redirect_uri = "http://philihp.com/boatswag/authenticate.do";
 }
