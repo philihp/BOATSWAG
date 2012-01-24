@@ -30,12 +30,12 @@
 		</action>
 		<action path="/authenticateGetGroups"
 			type="com.philihp.boatswag.action.AuthenticateGetGroups">
-			<forward name="default" path="/showBoard.do" redirect="true" />
+			<forward name="default" path="/" redirect="true" />
 			<forward name="authenticate" path="/authenticate.do"
 				redirect="true" />
 		</action>
 		<action path="/authenticateLogout" type="com.philihp.boatswag.action.AuthenticateLogout">
-			<forward name="default" path="/showBoard.do" redirect="true" />
+			<forward name="default" path="/" redirect="true" />
 		</action>
 
 		<action path="/showBoard" name="nullForm"
