@@ -1,0 +1,27 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <localRepository/>
+  <interactiveMode/>
+  <usePluginRegistry/>
+  <offline/>
+  <pluginGroups/>
+  <servers/>
+  <mirrors/>
+  <proxies/>
+  <profiles>
+    <profile>
+      <id>local</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <facebook.id>12345</facebook.id>
+        <facebook.secret>1a2b3c4d5e6f1a2b3c4d5e6f1a2b3c4d5e6f</facebook.secret>
+        <facebook.redirect>http://boatswag.com/authenticate.do</facebook.redirect>
+      </properties>
+    </profile>
+  </profiles>
+  <activeProfiles/>
+</settings>
