@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,8 +18,6 @@ import org.apache.struts.action.ActionMapping;
 
 import antlr.StringUtils;
 
-import com.philihp.boatswag.util.Facebook;
-
 public class Authenticate extends Action {
 
 	@Override
@@ -26,14 +25,20 @@ public class Authenticate extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
+		ServletContext servletContext = getServlet().getServletContext();
+
 		String code = (String) request.getParameter("code");
 
 		if (code != null && code.equals("") == false) {
+
 			URL url = new URL(
 					"https://graph.facebook.com/oauth/access_token?client_id="
-							+ Facebook.client_id + "&redirect_uri="
-							+ Facebook.redirect_uri + "&client_secret="
-							+ Facebook.client_secret + "&code=" + code);
+							+ servletContext.getAttribute("facebook.id")
+							+ "&redirect_uri="
+							+ servletContext.getAttribute("facebook.redirect")
+							+ "&client_secret="
+							+ servletContext.getAttribute("facebook.secret")
+							+ "&code=" + code);
 			try {
 				String result = readURL(url);
 				String accessToken = null;
@@ -52,23 +57,27 @@ public class Authenticate extends Action {
 						}
 					}
 				}
-				
-				Date expiresDate = new Date((new Date().getTime()) + expires*1000);
+
+				Date expiresDate = new Date((new Date().getTime()) + expires
+						* 1000);
 				request.getSession().setAttribute("accessToken", accessToken);
 				request.getSession().setAttribute("accessExpires", expiresDate);
-				
+
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 			return mapping.findForward("default");
-		}
-		else {
+		} else {
 			ActionForward forward = mapping.findForward("facebook");
 			String path = forward.getPath();
-			path = path.replaceAll("REDIRECT_URI", Facebook.redirect_uri);
-			path = path.replaceAll("CLIENT_ID", Facebook.client_id);
-			path = path.replaceAll("CLIENT_SECRET", Facebook.client_secret);
-			return new ActionForward(path,forward.getRedirect());
+			if((path.indexOf("${facebook.id}") > 0) || (path.indexOf("${facebook.redirect}") > 0)) {
+				//this is a hack because m2eclipse doesn't do filtering in wtp
+				path = path.replaceAll("\\$\\{facebook.id\\}", (String)servletContext.getAttribute("facebook.id"));
+				path = path.replaceAll("\\$\\{facebook.secret\\}", (String)servletContext.getAttribute("facebook.secret"));
+				path = path.replaceAll("\\$\\{facebook.redirect\\}", (String)servletContext.getAttribute("facebook.redirect"));
+				forward = new ActionForward(path, forward.getRedirect());
+			}
+			return forward;
 		}
 	}
 

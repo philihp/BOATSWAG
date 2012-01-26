@@ -23,9 +23,8 @@ import antlr.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.philihp.boatswag.util.Facebook;
-import com.philihp.boatswag.util.FacebookCredentials;
-import com.philihp.boatswag.util.FacebookCredentialsDeserializer;
+import com.philihp.boatswag.facebook.Credentials;
+import com.philihp.boatswag.facebook.CredentialsDeserializer;
 
 public class AuthenticateGetMe extends Action {
 
@@ -46,9 +45,9 @@ public class AuthenticateGetMe extends Action {
 				InputStream inputStream = connection.getInputStream();
 				Reader reader = new InputStreamReader(inputStream);
 
-				Gson gson = new GsonBuilder().registerTypeAdapter(FacebookCredentials.class,
-						new FacebookCredentialsDeserializer()).create();
-				FacebookCredentials credentials = gson.fromJson(reader, FacebookCredentials.class);
+				Gson gson = new GsonBuilder().registerTypeAdapter(Credentials.class,
+						new CredentialsDeserializer()).create();
+				Credentials credentials = gson.fromJson(reader, Credentials.class);
 
 				request.getSession().setAttribute("facebook", credentials);
 

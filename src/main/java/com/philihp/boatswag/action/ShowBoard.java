@@ -10,7 +10,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.philihp.boatswag.util.FacebookGroup;
+import com.philihp.boatswag.facebook.Group;
 
 public class ShowBoard extends Action {
 
@@ -21,13 +21,13 @@ public class ShowBoard extends Action {
 
 		boolean isInSurvivors = false;
 		@SuppressWarnings("unchecked")
-		List<FacebookGroup> groups = (List<FacebookGroup>) request.getSession()
+		List<Group> groups = (List<Group>) request.getSession()
 				.getAttribute("groups");
 
 		if (groups == null) {
 			return mapping.findForward("login");
 		}
-		for (FacebookGroup group : groups) {
+		for (Group group : groups) {
 			if ("298673206843160".equals(group.getId())) {
 				isInSurvivors = true;
 			}

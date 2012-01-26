@@ -1,4 +1,4 @@
-package com.philihp.boatswag.util;
+package com.philihp.boatswag.facebook;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -10,13 +10,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-public class FacebookCredentialsDeserializer implements
-		JsonDeserializer<FacebookCredentials> {
+public class CredentialsDeserializer implements
+		JsonDeserializer<Credentials> {
 
 	@Override
-	public FacebookCredentials deserialize(JsonElement json, Type typeOfT,
+	public Credentials deserialize(JsonElement json, Type typeOfT,
 			JsonDeserializationContext ctx) throws JsonParseException {
-		FacebookCredentials credentials = new FacebookCredentials();
+		Credentials credentials = new Credentials();
 		JsonObject obj = json.getAsJsonObject();
 		for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
 			if ("name".equals(entry.getKey()))

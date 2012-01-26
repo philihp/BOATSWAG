@@ -10,8 +10,8 @@
 
 	<global-forwards>
 		<forward name="root" path="/" redirect="true" />
-		
-		<!-- index.jsp needs this to be global, but nobody else should use it.  -->
+
+		<!-- index.jsp needs this to be global, but nobody else should use it. -->
 		<!-- instead, forward to "root" which keeps the URL uncluttered -->
 		<forward name="board" path="/showBoard.do" redirect="false" />
 	</global-forwards>
@@ -20,7 +20,7 @@
 		<action path="/authenticate" type="com.philihp.boatswag.action.Authenticate">
 			<forward name="default" path="/authenticateGetMe.do" />
 			<forward name="facebook"
-				path="https://www.facebook.com/dialog/oauth?client_id=CLIENT_ID&amp;scope=user_location,user_groups&amp;redirect_uri=REDIRECT_URI"
+				path="https://www.facebook.com/dialog/oauth?client_id=${facebook.id}&amp;scope=user_location,user_groups&amp;redirect_uri=${facebook.redirect}"
 				redirect="true" />
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">

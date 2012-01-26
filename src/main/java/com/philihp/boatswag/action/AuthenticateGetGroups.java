@@ -17,9 +17,9 @@ import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.philihp.boatswag.util.FacebookCredentials;
-import com.philihp.boatswag.util.FacebookGroups;
-import com.philihp.boatswag.util.FacebookGroupsDeserializer;
+import com.philihp.boatswag.facebook.Credentials;
+import com.philihp.boatswag.facebook.Groups;
+import com.philihp.boatswag.facebook.GroupsDeserializer;
 
 public class AuthenticateGetGroups extends Action {
 
@@ -40,9 +40,9 @@ public class AuthenticateGetGroups extends Action {
 				InputStream inputStream = connection.getInputStream();
 				Reader reader = new InputStreamReader(inputStream);
 
-				Gson gson = new GsonBuilder().registerTypeAdapter(FacebookGroups.class, new FacebookGroupsDeserializer())
+				Gson gson = new GsonBuilder().registerTypeAdapter(Groups.class, new GroupsDeserializer())
 						.create();
-				FacebookGroups groups = gson.fromJson(reader, FacebookGroups.class);
+				Groups groups = gson.fromJson(reader, Groups.class);
 
 				request.getSession().setAttribute("groups", groups.getGroups());
 

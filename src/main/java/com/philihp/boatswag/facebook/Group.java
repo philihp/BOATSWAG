@@ -1,6 +1,8 @@
-package com.philihp.boatswag.util;
+package com.philihp.boatswag.facebook;
 
-public class FacebookGroup {
+import java.io.Serializable;
+
+public class Group implements Serializable {
 
 	private int version;
 	private String name;
@@ -8,7 +10,7 @@ public class FacebookGroup {
 	private int unread;
 	private int bookmarkOrder;
 
-	public FacebookGroup() {
+	public Group() {
 	}
 
 	public int getVersion() {

@@ -8,6 +8,12 @@
 	<name>boatswag</name>
 	<description>Holy Ship Survivors Utilities #BOATSWAG</description>
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<finalName>boatswag</finalName>
 		<plugins>
 			<plugin>
@@ -26,6 +32,18 @@
 				<configuration>
 					<server>philihp.com</server>
 					<url>http://www.philihp.com:8080/manager</url>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>

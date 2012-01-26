@@ -16,9 +16,13 @@
       <param-name>detail</param-name>
       <param-value>2</param-value>
     </init-param>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>com.philihp.boatswag.facebook.PropertiesLoader</listener-class>
+  </listener>
 </web-app>

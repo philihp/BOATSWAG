@@ -1,4 +1,4 @@
-package com.philihp.boatswag.util;
+package com.philihp.boatswag.facebook;
 
 import java.lang.reflect.Type;
 import java.util.LinkedList;
@@ -13,19 +13,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-public class FacebookGroupsDeserializer implements
-		JsonDeserializer<FacebookGroups> {
+public class GroupsDeserializer implements
+		JsonDeserializer<Groups> {
 
 	@Override
-	public FacebookGroups deserialize(JsonElement json, Type typeOfT,
+	public Groups deserialize(JsonElement json, Type typeOfT,
 			JsonDeserializationContext ctx) throws JsonParseException {
-		FacebookGroups groups = new FacebookGroups();
+		Groups groups = new Groups();
 
 		JsonObject obj = json.getAsJsonObject();
 		JsonArray data = obj.get("data").getAsJsonArray();
 		for (JsonElement dataElement : data) {
 			JsonObject dataObj = dataElement.getAsJsonObject();
-			FacebookGroup group = new FacebookGroup();
+			Group group = new Group();
 			for (Map.Entry<String, JsonElement> entry : dataObj.entrySet()) {
 				if ("version".equals(entry.getKey()))
 					group.setVersion(entry.getValue().getAsInt());

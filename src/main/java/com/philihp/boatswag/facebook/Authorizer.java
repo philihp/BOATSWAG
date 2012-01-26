@@ -1,4 +1,4 @@
-package com.philihp.boatswag.util;
+package com.philihp.boatswag.facebook;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -15,7 +15,7 @@ import org.apache.struts.chain.contexts.ServletActionContext;
 import org.apache.struts.config.ActionConfig;
 import org.apache.struts.config.ModuleConfig;
 
-public class FacebookAuthorizer implements Command {
+public class Authorizer implements Command {
 
 	public boolean execute(Context context) throws Exception {
 		return execute((ServletActionContext) context);

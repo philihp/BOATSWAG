@@ -17,8 +17,6 @@ import org.apache.struts.action.ActionMapping;
 
 import antlr.StringUtils;
 
-import com.philihp.boatswag.util.Facebook;
-
 public class AuthenticateLogout extends Action {
 
 	@Override

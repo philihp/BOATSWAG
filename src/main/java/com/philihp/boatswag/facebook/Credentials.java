@@ -1,6 +1,8 @@
-package com.philihp.boatswag.util;
+package com.philihp.boatswag.facebook;
 
-public class FacebookCredentials {
+import java.io.Serializable;
+
+public class Credentials implements Serializable {
 
 	private int id;
 	private String name;
@@ -49,7 +51,7 @@ public class FacebookCredentials {
 	}
 
 	public String toString() {
-		return "FacebookCredentials{id=" + id + ", name=\"" + name + "\", firstName=\"" + firstName + "\", link=\"" + link
-				+ "\"}";
+		return "FacebookCredentials{id=" + id + ", name=\"" + name
+				+ "\", firstName=\"" + firstName + "\", link=\"" + link + "\"}";
 	}
 }
