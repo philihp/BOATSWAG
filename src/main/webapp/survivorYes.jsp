@@ -15,7 +15,10 @@
 	<html:link action="/authenticateLogout.do">Logout</html:link>
 	]
 	
-	<p>You are a Holy Ship survivor. Righteous.</p>
+	<p>You're a survivor.</p>
+	
+	<p>Longitude: <bean:write name="location" property="longitude" /></p>
+	<p>Latitude: <bean:write name="location" property="latitude" /></p>
 
 </body>
 </html>

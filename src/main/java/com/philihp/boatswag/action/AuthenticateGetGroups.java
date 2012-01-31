@@ -26,9 +26,9 @@ public class AuthenticateGetGroups extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Date expires = (Date) request.getSession().getAttribute("expires");
+		Date expires = (Date) request.getSession().getAttribute("accessExpires");
 
-		if (expires != null && expires.before(new Date())) {
+		if (expires == null || expires.before(new Date())) {
 			return mapping.findForward("authenticate");
 		} else {
 			String accessToken = (String) request.getSession().getAttribute("accessToken");

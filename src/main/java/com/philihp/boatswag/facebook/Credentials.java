@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 public class Credentials implements Serializable {
 
-	private int id;
+	private String id;
 	private String name;
 	private String firstName;
 	private String link;
 	private String username;
+	private String locationId;
 
 	public String getUsername() {
 		return username;
@@ -18,11 +19,11 @@ public class Credentials implements Serializable {
 		this.username = username;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -53,5 +54,13 @@ public class Credentials implements Serializable {
 	public String toString() {
 		return "FacebookCredentials{id=" + id + ", name=\"" + name
 				+ "\", firstName=\"" + firstName + "\", link=\"" + link + "\"}";
+	}
+
+	public String getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(String locationId) {
+		this.locationId = locationId;
 	}
 }

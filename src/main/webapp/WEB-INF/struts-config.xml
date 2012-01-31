@@ -24,22 +24,26 @@
 				redirect="true" />
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">
+			<forward name="default" path="/authenticateGetLocation.do" />
+			<forward name="authenticate" path="/authenticate.do" redirect="true" />
+		</action>
+		<action path="/authenticateGetLocation" type="com.philihp.boatswag.action.AuthenticateGetLocation">
 			<forward name="default" path="/authenticateGetGroups.do" />
-			<forward name="authenticate" path="/authenticate.do"
-				redirect="true" />
+			<forward name="authenticate" path="/authenticate.do" redirect="true" />
 		</action>
-		<action path="/authenticateGetGroups"
-			type="com.philihp.boatswag.action.AuthenticateGetGroups">
-			<forward name="default" path="/" redirect="true" />
-			<forward name="authenticate" path="/authenticate.do"
-				redirect="true" />
+		<action path="/authenticateGetGroups" type="com.philihp.boatswag.action.AuthenticateGetGroups">
+			<forward name="default" path="/authenticateSaveData.do" />
+			<forward name="authenticate" path="/authenticate.do" redirect="true" />
 		</action>
+		<action path="/authenticateSaveData" type="com.philihp.boatswag.action.AuthenticateSaveData">
+		  <forward name="default" path="/" redirect="true" />
+		</action>
+		
 		<action path="/authenticateLogout" type="com.philihp.boatswag.action.AuthenticateLogout">
 			<forward name="default" path="/" redirect="true" />
 		</action>
 
-		<action path="/showBoard" name="nullForm"
-			type="com.philihp.boatswag.action.ShowBoard">
+		<action path="/showBoard" name="nullForm" type="com.philihp.boatswag.action.ShowBoard">
 			<forward name="login" path="/login.jsp" />
 			<forward name="survivorNo" path="/survivorNo.jsp" />
 			<forward name="survivorYes" path="/survivorYes.jsp" />
