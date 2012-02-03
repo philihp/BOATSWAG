@@ -17,32 +17,41 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "user_id")
 	private int userId;
 
-	@Column
+	@Column(name = "name")
 	private String name;
 
-	@Column
+	@Column(name = "facebook_id")
 	private String facebookId;
 
-	@Column
+	@Column(name = "link")
 	private String link;
 
-	@Column
+	@Column(name = "location_id")
 	private String locationId;
 
-	@Column
+	@Column(name = "longitude")
 	private double longitude;
 
-	@Column
+	@Column(name = "latitude")
 	private double latitude;
-	
-	@Column
+
+	@Column(name = "access_token")
 	private String accessToken;
-	
-	@Column
+
+	@Column(name = "access_expires")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date accessExpires;
+
+	@Column(name = "date_created")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateCreated;
+
+	@Column(name = "date_updated")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateUpdated;
 
 	public User() {
 		super();
@@ -118,6 +127,32 @@ public class User implements Serializable {
 
 	public void setAccessExpires(Date accessExpires) {
 		this.accessExpires = accessExpires;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(Date dateUpdated) {
+		this.dateUpdated = dateUpdated;
+	}
+
+	@PreUpdate
+	@PrePersist
+	public void updateTimeStamps() {
+		Date now = new Date();
+		setDateUpdated(now);
+		if (getDateCreated() == null) {
+			setDateCreated(now);
+		}
 	}
 
 }

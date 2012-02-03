@@ -13,6 +13,8 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,8 +46,14 @@ public class AuthenticateSaveData extends Action {
 		Credentials credentials = (Credentials) request.getSession().getAttribute("facebook");
 		Location location = (Location) request.getSession().getAttribute("location");
 
-		User user = new User();
+		TypedQuery<User> query = EntityManagerManager.get().createQuery("SELECT u FROM User u WHERE u.facebookId = :facebookId", User.class);
+		query.setParameter("facebookId", credentials.getId());
+		List<User> results = query.getResultList();
+
+		User user = results.isEmpty()?new User():results.get(0);
+		
 		user.setFacebookId(credentials.getId());
+		user.setLocationId(location.getId());
 		user.setLatitude(location.getLatitude());
 		user.setLongitude(location.getLongitude());
 		user.setLink(credentials.getLink());
