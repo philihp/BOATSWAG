@@ -13,7 +13,7 @@
 		<html:link action="/authenticate.do">Login</html:link>
 	]
 	
-	This is the Holy Ship Survivor page. You need to login.
+	Login. Do it.
 
 </body>
 </html>

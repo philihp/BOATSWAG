@@ -4,11 +4,13 @@
 	<persistence-unit name="boatswag-pu" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<non-jta-data-source>java:comp/env/jdbc/BoatswagDB</non-jta-data-source>
+		<class>com.philihp.boatswag.jpa.BasicEntity</class>
 		<class>com.philihp.boatswag.jpa.User</class>
+		<class>com.philihp.boatswag.jpa.Connection</class>
 
 		<shared-cache-mode>NONE</shared-cache-mode>
 		<properties>
-			<property name="eclipselink.logging.level" value="FINEST" />
+			<property name="eclipselink.logging.level" value="FINE" />
 			<property name="eclipselink.target-database" value="MySQL" />
 
 			<!-- this is a workaround for Tomcat, otherwise Eclipselink can't find the JNDI datasource -->

@@ -18,8 +18,7 @@
 	<h2>You aren't a survivor!</h2>
 
 	<p>
-		You need to join this group: <a href="https://www.facebook.com/groups/298673206843160/">Holy Ship! Survivors</a> to
-		access this page. The following is a list of your groups, in case you are confused.
+		You need to be in the <a href="https://www.facebook.com/groups/260515844014310/">Holy Ship Maiden Voyage</a> group to do stuff here. Get someone to let you in.
 	</p>
 
 	<ul>

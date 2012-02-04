@@ -46,7 +46,7 @@ public class AuthenticateSaveData extends Action {
 		Credentials credentials = (Credentials) request.getSession().getAttribute("facebook");
 		Location location = (Location) request.getSession().getAttribute("location");
 
-		TypedQuery<User> query = EntityManagerManager.get().createQuery("SELECT u FROM User u WHERE u.facebookId = :facebookId", User.class);
+		TypedQuery<User> query = EntityManagerManager.get().createNamedQuery("findUserByFacebookId", User.class);
 		query.setParameter("facebookId", credentials.getId());
 		List<User> results = query.getResultList();
 

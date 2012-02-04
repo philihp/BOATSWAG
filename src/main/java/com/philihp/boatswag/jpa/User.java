@@ -4,16 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
+import static javax.persistence.AccessType.PROPERTY;
+import static javax.persistence.AccessType.FIELD;
 
 /**
  * Entity implementation class for Entity: User
  * 
  */
-@Entity
+@Entity(name = "User")
 @Table(name = "boatswag_user")
-public class User implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@Access(FIELD)
+@NamedQuery(name = "findUserByFacebookId", query = "SELECT u FROM User u WHERE u.facebookId = :facebookId")
+public class User extends BasicEntity implements Serializable {
 
 	@Id
 	@GeneratedValue
@@ -21,9 +23,11 @@ public class User implements Serializable {
 	private int userId;
 
 	@Column(name = "name")
+	@Basic(optional = false)
 	private String name;
 
 	@Column(name = "facebook_id")
+	@Basic(optional = false)
 	private String facebookId;
 
 	@Column(name = "link")
@@ -44,14 +48,6 @@ public class User implements Serializable {
 	@Column(name = "access_expires")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date accessExpires;
-
-	@Column(name = "date_created")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateCreated;
-
-	@Column(name = "date_updated")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateUpdated;
 
 	public User() {
 		super();
@@ -128,31 +124,4 @@ public class User implements Serializable {
 	public void setAccessExpires(Date accessExpires) {
 		this.accessExpires = accessExpires;
 	}
-
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public Date getDateUpdated() {
-		return dateUpdated;
-	}
-
-	public void setDateUpdated(Date dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
-
-	@PreUpdate
-	@PrePersist
-	public void updateTimeStamps() {
-		Date now = new Date();
-		setDateUpdated(now);
-		if (getDateCreated() == null) {
-			setDateCreated(now);
-		}
-	}
-
 }

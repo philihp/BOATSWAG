@@ -17,8 +17,10 @@
 	
 	<p>You're a survivor.</p>
 	
-	<p>Longitude: <bean:write name="location" property="longitude" /></p>
-	<p>Latitude: <bean:write name="location" property="latitude" /></p>
+	<p>Longitude: <bean:write name="location" property="longitude" ignore="true" /></p>
+	<p>Latitude: <bean:write name="location" property="latitude" ignore="true"  /></p>
+
+  <p><html:link action="/refreshMyFriends.do">Refresh my Friends</html:link></p>
 
 </body>
 </html>

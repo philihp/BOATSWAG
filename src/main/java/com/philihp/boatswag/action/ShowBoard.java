@@ -28,7 +28,7 @@ public class ShowBoard extends Action {
 			return mapping.findForward("login");
 		}
 		for (Group group : groups) {
-			if ("298673206843160".equals(group.getId())) {
+			if (getServlet().getServletContext().getAttribute("membership.group.id").equals(group.getId())) {
 				isInSurvivors = true;
 			}
 		}

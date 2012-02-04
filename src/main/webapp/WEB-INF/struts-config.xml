@@ -10,6 +10,7 @@
 
 	<global-forwards>
 		<forward name="root" path="/" redirect="true" />
+			<forward name="authenticate" path="/authenticate.do" redirect="true" />
 
 		<!-- index.jsp needs this to be global, but nobody else should use it. -->
 		<!-- instead, forward to "root" which keeps the URL uncluttered -->
@@ -25,15 +26,12 @@
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">
 			<forward name="default" path="/authenticateGetLocation.do" />
-			<forward name="authenticate" path="/authenticate.do" redirect="true" />
 		</action>
 		<action path="/authenticateGetLocation" type="com.philihp.boatswag.action.AuthenticateGetLocation">
 			<forward name="default" path="/authenticateGetGroups.do" />
-			<forward name="authenticate" path="/authenticate.do" redirect="true" />
 		</action>
 		<action path="/authenticateGetGroups" type="com.philihp.boatswag.action.AuthenticateGetGroups">
 			<forward name="default" path="/authenticateSaveData.do" />
-			<forward name="authenticate" path="/authenticate.do" redirect="true" />
 		</action>
 		<action path="/authenticateSaveData" type="com.philihp.boatswag.action.AuthenticateSaveData">
 		  <forward name="default" path="/" redirect="true" />
@@ -41,6 +39,13 @@
 		
 		<action path="/authenticateLogout" type="com.philihp.boatswag.action.AuthenticateLogout">
 			<forward name="default" path="/" redirect="true" />
+		</action>
+		
+		<action path="/refreshConnections" type="com.philihp.boatswag.action.RefreshConnections">
+		  <forward name="default" path="/" redirect="true" />
+		</action>
+		<action path="/refreshMyFriends" type="com.philihp.boatswag.action.RefreshMyFriends">
+		  <forward name="default" path="/refreshConnections.do" />
 		</action>
 
 		<action path="/showBoard" name="nullForm" type="com.philihp.boatswag.action.ShowBoard">
