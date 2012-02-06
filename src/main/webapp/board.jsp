@@ -56,6 +56,10 @@ display: none;
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyClU2_S9sMyhaSFjunq9GSZg91b_-pnjWI&sensor=false">
     </script>
     <script type="text/javascript">
+
+      var overlay;
+      TitleOverlay.prototype = new google.maps.OverlayView();
+
       function initialize() {
     	  
         var myOptions = {
@@ -65,23 +69,67 @@ display: none;
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
+
+        var swBound = new google.maps.LatLng(49.0,-122.0);
+        var neBound = new google.maps.LatLng(54.0,-65.4);
+        var bounds = new google.maps.LatLngBounds(swBound, neBound);
+        var srcImage = 'boatswag.png';
+
+        overlay = new TitleOverlay(bounds, srcImage, map);
         
         var infoWindow = new google.maps.InfoWindow({ });
         
 <logic:iterate name="users" id="user">
-				var pin<bean:write name="user" property="facebookId" ignore="true" /> = new google.maps.Marker({
-					position: new google.maps.LatLng(<bean:write name="user" property="latitudeWithVariance" ignore="true" />,<bean:write name="user" property="longitudeWithVariance" ignore="true" />),
-					map: map,
-					title:"<bean:write name="user" property="nameEscapedForJavascript" filter="false" />"
-				});
-				google.maps.event.addListener(pin<bean:write name="user" property="facebookId" ignore="true" />, 'click', function() {
-					infoWindow.setContent('<div class="infoPicture"><a href="<bean:write name="user" property="link" ignore="true" />"><img src="https://graph.facebook.com/<bean:write name="user" property="facebookId" />/picture" /></a></div><span class="infoDetails"><a href="<bean:write name="user" property="link" ignore="true" />"><bean:write name="user" property="nameEscapedForJavascript" filter="false" /></a></span><span class="infoLocation"><bean:write name="user" property="locationNameEscapedForJavascript" filter="false" /></span>');
-					infoWindow.open(map,pin<bean:write name="user" property="facebookId" ignore="true" />);
-				});
+        var pin<bean:write name="user" property="facebookId" ignore="true" /> = new google.maps.Marker({
+          position: new google.maps.LatLng(<bean:write name="user" property="latitudeWithVariance" ignore="true" />,<bean:write name="user" property="longitudeWithVariance" ignore="true" />),
+          map: map,
+          title:"<bean:write name="user" property="nameEscapedForJavascript" filter="false" />"
+        });
+        google.maps.event.addListener(pin<bean:write name="user" property="facebookId" ignore="true" />, 'click', function() {
+          infoWindow.setContent('<div class="infoPicture"><a href="<bean:write name="user" property="link" ignore="true" />"><img src="https://graph.facebook.com/<bean:write name="user" property="facebookId" />/picture" /></a></div><span class="infoDetails"><a href="<bean:write name="user" property="link" ignore="true" />"><bean:write name="user" property="nameEscapedForJavascript" filter="false" /></a></span><span class="infoLocation"><bean:write name="user" property="locationNameEscapedForJavascript" filter="false" /></span>');
+          infoWindow.open(map,pin<bean:write name="user" property="facebookId" ignore="true" />);
+        });
 </logic:iterate>
-
-        
       }
+
+    function TitleOverlay(bounds, image, map) {
+      this.bounds_ = bounds;
+      this.image_ = image;
+      this.map_ = map;
+      this.div_ = null;
+      this.setMap(map);
+    }
+    TitleOverlay.prototype.onAdd = function() {
+      var div = document.createElement('DIV');
+      div.style.borderStyle = 'none';
+      div.style.borderWidth = '0';
+      div.style.position = 'absolute';
+
+      var img = document.createElement('img');
+      img.src = this.image_;
+      img.style.width = '100%';
+      img.style.height = '100%';
+      div.appendChild(img);
+
+      this.div_ = div;
+
+      var panes = this.getPanes();
+      panes.overlayImage.appendChild(div);
+    }
+    TitleOverlay.prototype.draw = function() {
+      var overlayProjection = this.getProjection();
+      var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
+      var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+      var div = this.div_;
+      div.style.left = sw.x + 'px';
+      div.style.top = ne.y + 'px';
+      div.style.width = (ne.x - sw.x) + 'px';
+      div.style.height = (sw.y - ne.y) + 'px';
+    }
+    TitleOverlay.prototype.onRemove = function() {
+      this.div_.parentNode.removeChild(this.div_);
+      this.div_ = null;
+    }
     </script>
 </head>
 <body onload="initialize()">
