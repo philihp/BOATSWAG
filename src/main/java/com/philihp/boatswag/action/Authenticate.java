@@ -65,7 +65,7 @@ System.out.println("authenticating");
 					expiresDate = new Date(new Date().getTime() + expires*1000);
 				}
 				else {
-					expiresDate = new Date(Long.MAX_VALUE); 
+					expiresDate = new Date(187103883600000l); //5999-01-01 
 				}
 				
 				request.getSession().setAttribute("accessToken", accessToken);
