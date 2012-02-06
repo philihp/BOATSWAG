@@ -21,14 +21,14 @@ import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.philihp.boatswag.facebook.Credentials;
+import com.philihp.boatswag.facebook.FBUser;
 import com.philihp.boatswag.facebook.GroupMember;
 import com.philihp.boatswag.facebook.GroupMembers;
 import com.philihp.boatswag.facebook.GroupMembersDeserializer;
 import com.philihp.boatswag.facebook.Groups;
 import com.philihp.boatswag.facebook.GroupsDeserializer;
-import com.philihp.boatswag.facebook.Location;
-import com.philihp.boatswag.facebook.LocationDeserializer;
+import com.philihp.boatswag.facebook.FBLocation;
+import com.philihp.boatswag.facebook.FBLocationDeserializer;
 import com.philihp.boatswag.jpa.Connection;
 import com.philihp.boatswag.jpa.EntityManagerManager;
 import com.philihp.boatswag.jpa.User;
@@ -39,7 +39,7 @@ public class RefreshGroup extends BaseAction {
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		Credentials credentials = (Credentials) request.getSession().getAttribute("credentials");
+		FBUser credentials = (FBUser) request.getSession().getAttribute("credentials");
 		String accessToken = (String) request.getSession().getAttribute("accessToken");
 		String groupId = (String) getServlet().getServletContext().getAttribute("membership.group.id");
 

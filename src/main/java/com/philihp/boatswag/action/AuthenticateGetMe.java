@@ -25,8 +25,8 @@ import antlr.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.philihp.boatswag.facebook.Credentials;
-import com.philihp.boatswag.facebook.CredentialsDeserializer;
+import com.philihp.boatswag.facebook.FBUser;
+import com.philihp.boatswag.facebook.FBUserDeserializer;
 import com.philihp.boatswag.jpa.EntityManagerManager;
 import com.philihp.boatswag.jpa.User;
 
@@ -37,8 +37,8 @@ public class AuthenticateGetMe extends BaseAction {
 			HttpServletResponse response) throws Exception {
 		Date expires = (Date) request.getSession().getAttribute("accessExpires");
 
-System.out.println("authenticate get me ");
-		
+		System.out.println("authenticate get me ");
+
 		if (expires == null || expires.before(new Date())) {
 			return mapping.findForward("authenticate");
 		} else {
@@ -51,30 +51,18 @@ System.out.println("authenticate get me ");
 				InputStream inputStream = connection.getInputStream();
 				Reader reader = new InputStreamReader(inputStream);
 
-				Gson gson = new GsonBuilder().registerTypeAdapter(Credentials.class, new CredentialsDeserializer()).create();
-				Credentials credentials = gson.fromJson(reader, Credentials.class);
+				Gson gson = new GsonBuilder().registerTypeAdapter(FBUser.class, new FBUserDeserializer()).create();
+				FBUser credentials = gson.fromJson(reader, FBUser.class);
 
 				request.getSession().setAttribute("credentials", credentials);
-				saveUser(credentials, accessToken, expires);
+				
+				User user = saveUser(credentials);
+				user.setAccessToken(accessToken);
+				user.setAccessExpires(expires);
 
 				return mapping.findForward("default");
 			}
 		}
-	}
-
-	private void saveUser(Credentials credentials, String accessToken, Date accessExpires) {
-		User user = findUserByFacebookId(credentials.getId());
-
-		user.setFacebookId(credentials.getId());
-		user.setLink(credentials.getLink());
-		user.setName(credentials.getName());
-		user.setLocationId(credentials.getLocationId());
-		user.setAccessExpires(accessExpires);
-		user.setAccessToken(accessToken);
-		
-		System.out.println("name = "+user.getName());
-		System.out.println("link = "+user.getLink());
-		System.out.println("facebookId = "+user.getFacebookId());
 	}
 
 }

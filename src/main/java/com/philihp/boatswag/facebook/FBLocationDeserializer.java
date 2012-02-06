@@ -10,11 +10,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-public class LocationDeserializer implements JsonDeserializer<Location> {
+public class FBLocationDeserializer implements JsonDeserializer<FBLocation> {
 
 	@Override
-	public Location deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext ctx) throws JsonParseException {
-		Location location = new Location();
+	public FBLocation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext ctx) throws JsonParseException {
+		FBLocation location = new FBLocation();
 		JsonObject obj = json.getAsJsonObject();
 		for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
 			if ("id".equals(entry.getKey()))

@@ -1,6 +1,6 @@
 package com.philihp.boatswag.facebook;
 
-public class Location {
+public class FBLocation {
 
 	private String id;
 	private String link;

@@ -2,7 +2,7 @@ package com.philihp.boatswag.facebook;
 
 import java.io.Serializable;
 
-public class Credentials implements Serializable {
+public class FBUser implements Serializable {
 
 	private String id;
 	private String name;

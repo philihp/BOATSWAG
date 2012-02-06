@@ -21,14 +21,14 @@ import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.philihp.boatswag.facebook.Credentials;
+import com.philihp.boatswag.facebook.FBUser;
 import com.philihp.boatswag.facebook.GroupMember;
 import com.philihp.boatswag.facebook.GroupMembers;
 import com.philihp.boatswag.facebook.GroupMembersDeserializer;
 import com.philihp.boatswag.facebook.Groups;
 import com.philihp.boatswag.facebook.GroupsDeserializer;
-import com.philihp.boatswag.facebook.Location;
-import com.philihp.boatswag.facebook.LocationDeserializer;
+import com.philihp.boatswag.facebook.FBLocation;
+import com.philihp.boatswag.facebook.FBLocationDeserializer;
 import com.philihp.boatswag.jpa.Connection;
 import com.philihp.boatswag.jpa.EntityManagerManager;
 import com.philihp.boatswag.jpa.User;
@@ -40,7 +40,7 @@ public class RefreshFriends extends BaseAction {
 			HttpServletResponse response) throws Exception {
 		try {
 
-			Credentials credentials = (Credentials) request.getSession().getAttribute("credentials");
+			FBUser credentials = (FBUser) request.getSession().getAttribute("credentials");
 			String accessToken = (String) request.getSession().getAttribute("accessToken");
 			String groupId = (String) getServlet().getServletContext().getAttribute("membership.group.id");
 			List<Connection> groupConnections = findConnectionsBySubjectId(groupId);
@@ -50,13 +50,8 @@ public class RefreshFriends extends BaseAction {
 
 			List<User> users = fetchFriends(credentials.getId(), accessToken, groupConnections);
 
-			for(User userToRefresh : users) {
-				System.out.println("Refresh user: "+userToRefresh.getName());
-			}
-
 			System.out.println("Done refershing");
-			
-			
+
 			return mapping.findForward("default");
 		} catch (AuthenticationException e) {
 			return mapping.findForward("authenticate");
@@ -64,10 +59,11 @@ public class RefreshFriends extends BaseAction {
 
 	}
 
-	private List<User> fetchFriends(String facebookId, String accessToken, List<Connection> groupList) throws AuthenticationException, Exception {
+	private List<User> fetchFriends(String facebookId, String accessToken, List<Connection> groupList)
+			throws AuthenticationException, Exception {
 		List<User> users = new LinkedList<User>();
 
-System.out.println("Fetching friends...");
+		System.out.println("Fetching friends...");
 		URL url = new URL("https://graph.facebook.com/" + facebookId + "/friends" + "?access_token=" + accessToken);
 		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 		if (conn.getResponseCode() == 400)
@@ -78,20 +74,25 @@ System.out.println("Fetching friends...");
 		Gson gson = new GsonBuilder().registerTypeAdapter(GroupMembers.class, new GroupMembersDeserializer()).create();
 		GroupMembers groupMembers = gson.fromJson(reader, GroupMembers.class);
 
-System.out.println("Fetched!");
+		System.out.println("Fetched! number: "+ groupMembers.getGroupMembers().size());
 		for (GroupMember member : groupMembers.getGroupMembers()) {
 			String memberFacebookId = member.getId();
-			
-			for(Connection connection : groupList) {
-				if(memberFacebookId != null && memberFacebookId.equals(connection.getFacebookPredicateId())) {
-					User user = findUserByFacebookId(memberFacebookId);
-					user.setName(member.getName());
+
+			for (Connection connection : groupList) {
+				if (memberFacebookId != null && memberFacebookId.equals(connection.getFacebookPredicateId())) {
+					System.out.println("Fetching " + memberFacebookId);
+					User user = fetchUser(accessToken, memberFacebookId);
+					if (user.getLocationId() != null) {
+						FBLocation location = fetchLocation(accessToken, user.getLocationId());
+						user.setLatitude(location.getLatitude());
+						user.setLongitude(location.getLongitude());
+					}
 					users.add(user);
 					break;
 				}
 			}
 		}
-		
+
 		return users;
 	}
 

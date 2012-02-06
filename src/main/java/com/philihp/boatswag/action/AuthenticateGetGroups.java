@@ -17,7 +17,7 @@ import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.philihp.boatswag.facebook.Credentials;
+import com.philihp.boatswag.facebook.FBUser;
 import com.philihp.boatswag.facebook.Groups;
 import com.philihp.boatswag.facebook.GroupsDeserializer;
 

@@ -10,13 +10,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-public class CredentialsDeserializer implements
-		JsonDeserializer<Credentials> {
+public class FBUserDeserializer implements
+		JsonDeserializer<FBUser> {
 
 	@Override
-	public Credentials deserialize(JsonElement json, Type typeOfT,
+	public FBUser deserialize(JsonElement json, Type typeOfT,
 			JsonDeserializationContext ctx) throws JsonParseException {
-		Credentials credentials = new Credentials();
+		FBUser credentials = new FBUser();
 		JsonObject obj = json.getAsJsonObject();
 		for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
 			if ("name".equals(entry.getKey()))
@@ -31,7 +31,9 @@ public class CredentialsDeserializer implements
 				credentials.setUsername(entry.getValue().getAsString());
 			else if ("location".equals(entry.getKey())) {
 				JsonObject location = entry.getValue().getAsJsonObject();
-				credentials.setLocationId(location.get("id").getAsString());
+				String locationId = location.get("id").getAsString();
+				if(locationId != null && false==locationId.equals(""))
+					credentials.setLocationId(locationId);
 				// we could get name here, but instead just get it later.
 			}
 			
