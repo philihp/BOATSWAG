@@ -44,7 +44,7 @@ abstract class BaseAction extends Action {
 	}
 
 	protected User fetchUser(String accessToken, String facebookId) throws AuthenticationException, Exception {
-		URL url = new URL("https://graph.facebook.com/"+facebookId+"?access_token=" + accessToken);
+		URL url = new URL("https://graph.facebook.com/" + facebookId + "?access_token=" + accessToken);
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 		if (connection.getResponseCode() == 400)
 			throw new AuthenticationException();
@@ -59,7 +59,7 @@ abstract class BaseAction extends Action {
 	}
 
 	protected FBLocation fetchLocation(String accessToken, String facebookId) throws AuthenticationException, Exception {
-		URL url = new URL("https://graph.facebook.com/"+facebookId+"?access_token=" + accessToken);
+		URL url = new URL("https://graph.facebook.com/" + facebookId + "?access_token=" + accessToken);
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 		if (connection.getResponseCode() == 400)
 			throw new AuthenticationException();
@@ -72,10 +72,10 @@ abstract class BaseAction extends Action {
 
 		return location;
 	}
-	
+
 	protected String fetchPictureURL(String accessToken, String facebookId) throws AuthenticationException, Exception {
-		System.out.println("facebookId = "+facebookId);
-		URL url = new URL("https://graph.facebook.com/"+facebookId+"/picture?access_token=" + accessToken);
+		System.out.println("facebookId = " + facebookId);
+		URL url = new URL("https://graph.facebook.com/" + facebookId + "/picture?access_token=" + accessToken);
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 		if (connection.getResponseCode() == 400)
 			throw new AuthenticationException();
@@ -85,13 +85,16 @@ abstract class BaseAction extends Action {
 
 		Gson gson = new Gson();
 		String pictureURL = gson.fromJson(reader, String.class);
-		
+
 		return pictureURL;
 	}
-	
+
 	protected List<User> findUsersWithLocations(String groupId) {
 		EntityManager em = EntityManagerManager.get();
-		TypedQuery<User> query = em.createQuery( "SELECT u FROM User u, Connection c WHERE c.facebookPredicateId = u.facebookId AND c.facebookSubjectId = :groupId AND u.locationId IS NOT NULL AND u.longitude IS NOT NULL AND u.latitude IS NOT NULL", User.class);
+		TypedQuery<User> query = em
+				.createQuery(
+						"SELECT u FROM User u, Connection c WHERE c.facebookPredicateId = u.facebookId AND c.facebookSubjectId = :groupId AND u.locationId IS NOT NULL AND u.longitude IS NOT NULL AND u.latitude IS NOT NULL",
+						User.class);
 		query.setParameter("groupId", groupId);
 		List<User> results = query.getResultList();
 		return results;
@@ -143,11 +146,15 @@ abstract class BaseAction extends Action {
 		User user = findUserByFacebookId(credentials.getId());
 
 		user.setFacebookId(credentials.getId());
-		user.setLink(credentials.getLink());
-		user.setName(credentials.getName());
-		user.setLocationId(credentials.getLocationId());
-		user.setLocationName(credentials.getLocationName());
-		
+		if (credentials.getLink() != null)
+			user.setLink(credentials.getLink());
+		if (credentials.getName() != null)
+			user.setName(credentials.getName());
+		if (credentials.getLocationId() != null)
+			user.setLocationId(credentials.getLocationId());
+		if (credentials.getLocationName() != null)
+			user.setLocationName(credentials.getLocationName());
+
 		return user;
 	}
 }
