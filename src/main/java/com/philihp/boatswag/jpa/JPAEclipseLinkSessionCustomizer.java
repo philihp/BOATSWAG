@@ -43,7 +43,6 @@ public class JPAEclipseLinkSessionCustomizer implements SessionCustomizer {
 						.getReadConnectionPool().getLogin()).getConnector();
 				readConnector.setLookupType(JNDIConnector.STRING_LOOKUP);
 
-				System.out.println("_JPAEclipseLinkSessionCustomizer: configured " + connector.getName());
 			} else {
 				throw new Exception("_JPAEclipseLinkSessionCustomizer: Context is null");
 			}

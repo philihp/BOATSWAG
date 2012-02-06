@@ -24,6 +24,8 @@ public class Authenticate extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		
+System.out.println("authenticating");
 
 		ServletContext servletContext = getServlet().getServletContext();
 

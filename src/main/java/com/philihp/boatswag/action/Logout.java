@@ -17,13 +17,13 @@ import org.apache.struts.action.ActionMapping;
 
 import antlr.StringUtils;
 
-public class AuthenticateLogout extends Action {
+public class Logout extends Action {
 
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		request.getSession().setAttribute("facebook", null);
+		request.getSession().setAttribute("credentials", null);
 		request.getSession().setAttribute("groups", null);
 		request.getSession().setAttribute("accessToken", null);
 		request.getSession().setAttribute("accessExpires", null);

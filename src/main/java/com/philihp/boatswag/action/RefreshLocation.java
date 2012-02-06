@@ -5,8 +5,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,21 +24,24 @@ import com.philihp.boatswag.facebook.Groups;
 import com.philihp.boatswag.facebook.GroupsDeserializer;
 import com.philihp.boatswag.facebook.Location;
 import com.philihp.boatswag.facebook.LocationDeserializer;
+import com.philihp.boatswag.jpa.EntityManagerManager;
+import com.philihp.boatswag.jpa.User;
 
-public class AuthenticateGetLocation extends Action {
+public class RefreshLocation extends BaseAction {
 
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Date expires = (Date) request.getSession().getAttribute("accessExpires");
+		String accessToken = (String) request.getSession().getAttribute("accessToken");
+		Credentials credentials = (Credentials) request.getSession().getAttribute("credentials");
 
 		if (expires == null || expires.before(new Date())) {
 			return mapping.findForward("authenticate");
 		} else {
 
-			Credentials credentials = (Credentials) request.getSession().getAttribute("facebook");
+System.out.println("pulling location");
 
-			String accessToken = (String) request.getSession().getAttribute("accessToken");
 			URL url = new URL("https://graph.facebook.com/" + credentials.getLocationId() + "?access_token=" + accessToken);
 			HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 			if (connection.getResponseCode() == 400) {
@@ -49,10 +54,21 @@ public class AuthenticateGetLocation extends Action {
 				Location location = gson.fromJson(reader, Location.class);
 
 				request.getSession().setAttribute("location", location);
+				saveLocation(credentials.getId(),location);
 
 				return mapping.findForward("default");
 			}
 		}
+	}
+
+	private void saveLocation(String facebookId, Location location) {
+		User user = findUserByFacebookId(facebookId);
+
+		user.setFacebookId(facebookId);
+		user.setLocationId(location.getId());
+		user.setLatitude(location.getLatitude());
+		user.setLongitude(location.getLongitude());
+		
 	}
 
 }

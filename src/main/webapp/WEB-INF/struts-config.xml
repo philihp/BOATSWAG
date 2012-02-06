@@ -21,37 +21,33 @@
 		<action path="/authenticate" type="com.philihp.boatswag.action.Authenticate">
 			<forward name="default" path="/authenticateGetMe.do" />
 			<forward name="facebook"
-				path="https://www.facebook.com/dialog/oauth?client_id=${facebook.id}&amp;scope=user_location,user_groups&amp;redirect_uri=${facebook.redirect}"
+				path="https://www.facebook.com/dialog/oauth?client_id=${facebook.id}&amp;scope=user_location,user_groups,friends_location,offline_access&amp;redirect_uri=${facebook.redirect}"
 				redirect="true" />
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">
-			<forward name="default" path="/authenticateGetLocation.do" />
-		</action>
-		<action path="/authenticateGetLocation" type="com.philihp.boatswag.action.AuthenticateGetLocation">
-			<forward name="default" path="/authenticateGetGroups.do" />
-		</action>
-		<action path="/authenticateGetGroups" type="com.philihp.boatswag.action.AuthenticateGetGroups">
-			<forward name="default" path="/authenticateSaveData.do" />
-		</action>
-		<action path="/authenticateSaveData" type="com.philihp.boatswag.action.AuthenticateSaveData">
-		  <forward name="default" path="/" redirect="true" />
-		</action>
-		
-		<action path="/authenticateLogout" type="com.philihp.boatswag.action.AuthenticateLogout">
 			<forward name="default" path="/" redirect="true" />
 		</action>
 		
-		<action path="/refreshConnections" type="com.philihp.boatswag.action.RefreshConnections">
-		  <forward name="default" path="/" redirect="true" />
+		<action path="/logout" type="com.philihp.boatswag.action.Logout">
+			<forward name="default" path="/" redirect="true" />
 		</action>
-		<action path="/refreshMyFriends" type="com.philihp.boatswag.action.RefreshMyFriends">
-		  <forward name="default" path="/refreshConnections.do" />
+		
+		<action path="/refreshLocation" type="com.philihp.boatswag.action.RefreshLocation">
+			<forward name="default" path="/" redirect="true" />
 		</action>
-
+		
+		<action path="/refreshFriends" type="com.philihp.boatswag.action.RefreshFriends">
+			<forward name="default" path="/" redirect="true" />
+		</action>
+		
+		<action path="/refreshGroup" type="com.philihp.boatswag.action.RefreshGroup">
+			<forward name="default" path="/" redirect="true" />
+		</action>
+		
 		<action path="/showBoard" name="nullForm" type="com.philihp.boatswag.action.ShowBoard">
 			<forward name="login" path="/login.jsp" />
 			<forward name="survivorNo" path="/survivorNo.jsp" />
-			<forward name="survivorYes" path="/survivorYes.jsp" />
+			<forward name="default" path="/board.jsp" />
 		</action>
 
 	</action-mappings>

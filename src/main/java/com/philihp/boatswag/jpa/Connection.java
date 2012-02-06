@@ -16,7 +16,10 @@ import static javax.persistence.AccessType.FIELD;
  */
 @Entity(name = "Connection")
 @Table(name = "boatswag_connection")
-@NamedQuery(name = "findGroupMembershipConnection", query = "SELECT c FROM Connection c WHERE c.facebookSubjectId = :facebookSubjectId AND c.facebookPredicateId = :facebookPredicateId")
+@NamedQueries({
+		@NamedQuery(name = "findConnectionsBySubjectId", query = "SELECT c FROM Connection c WHERE c.facebookSubjectId = :facebookSubjectId"),
+		@NamedQuery(name = "findConnectionsByPredicateId", query = "SELECT c FROM Connection c WHERE c.facebookPredicateId = :facebookPredicateId"),
+		@NamedQuery(name = "findConnectionBySubjectIdAndPredicateId", query = "SELECT c FROM Connection c WHERE c.facebookSubjectId = :facebookSubjectId AND c.facebookPredicateId = :facebookPredicateId") })
 @Access(FIELD)
 public class Connection extends BasicEntity implements Serializable {
 

@@ -1,6 +1,7 @@
 package com.philihp.boatswag.action;
 
 import java.io.InputStream;
+
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +33,7 @@ import com.philihp.boatswag.facebook.LocationDeserializer;
 import com.philihp.boatswag.jpa.Connection;
 import com.philihp.boatswag.jpa.EntityManagerManager;
 
-public class RefreshMyFriends extends Action {
+public class RefreshMyFriendData extends Action {
 
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -40,12 +42,23 @@ public class RefreshMyFriends extends Action {
 		Credentials credentials = (Credentials) request.getSession().getAttribute("facebook");
 		if (credentials == null) {
 			return mapping.findForward("authenticate");
-		} else {
-			request.setAttribute("type", "friends");
-			request.setAttribute("subjectId", credentials.getId());
-			
-			return mapping.findForward("default");
 		}
+
+		EntityManager em = EntityManagerManager.get();
+		TypedQuery<Connection> query = em
+				.createQuery(
+						"SELECT a "
+								+ "FROM Connection a, Connection b WHERE a.facebookSubjectId = b.facebookSubjectId AND a.facebookPredicateId = :facebookId AND b.facebookPredicateId = :groupId",
+						Connection.class);
+		query.setParameter("facebookId", credentials.getId());
+		query.setParameter("groupId", getServlet().getServletContext().getAttribute("membership.group.id"));
+		List<Connection> connections = query.getResultList();
+
+		for (Connection c : connections) {
+			System.out.println(c.getFacebookSubjectId());
+		}
+
+		return mapping.findForward("done");
 	}
 
 }
