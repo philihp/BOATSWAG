@@ -2,6 +2,7 @@ package com.philihp.boatswag.action;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,20 +11,30 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.philihp.boatswag.facebook.FBUser;
 import com.philihp.boatswag.facebook.Group;
+import com.philihp.boatswag.jpa.User;
 
-public class ShowBoard extends Action {
+public class ShowBoard extends BaseAction {
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		
-		if(request.getSession().getAttribute("credentials") == null) {
-			return mapping.findForward("authenticate");
-		}
-		else {
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		FBUser credentials = (FBUser)request.getSession().getAttribute("credentials");
+		try {
+			if (credentials == null)
+				throw new AuthenticationException();
+			User me = findUserByFacebookId(credentials.getId());
+			request.setAttribute("me", me);
+			
+			List<User> users = findUsersWithLocations();
+			request.setAttribute("users", users);
+			
+			for(User user : users) { System.out.println(user.getName()); }
+
 			return mapping.findForward("default");
+		} catch (AuthenticationException e) {
+			return mapping.findForward("authenticate");
 		}
 
 	}

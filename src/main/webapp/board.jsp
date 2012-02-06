@@ -6,25 +6,86 @@
 <html>
 <head>
 <title>#BOATSWAG</title>
+<style>
+body {
+	font: 81.25%/1.5 Arial, Helvetica, sans-serif;
+}
+</style>
+<style type="text/css">
+html {
+	height: 100%
+}
+
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0
+}
+
+#map_canvas {
+	height: 100%
+	z-index: 1;
+}
+#util {
+  position: fixed;
+  bottom: 2.5em;
+  right: 0.5em;
+  padding: 5px;
+  border: 1px solid yellow;
+  border-radius: 5px;
+  background-color: rgba(255,255,255,0.75);
+  z-index: 1;
+}
+</style>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyClU2_S9sMyhaSFjunq9GSZg91b_-pnjWI&sensor=false">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+    	  
+        var myOptions = {
+          center: new google.maps.LatLng(<bean:write name="me" property="latitude" />, <bean:write name="me" property="longitude" />),
+          zoom: 4,
+          mapTypeId: google.maps.MapTypeId.TERRAIN
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+        
+        var infoWindow = new google.maps.InfoWindow({ });
+        
+<logic:iterate name="users" id="user">
+				var pin<bean:write name="user" property="facebookId" ignore="true" /> = new google.maps.Marker({
+					position: new google.maps.LatLng(<bean:write name="user" property="latitudeWithVariance" ignore="true" />,<bean:write name="user" property="longitudeWithVariance" ignore="true" />),
+					map: map,
+					title:"<bean:write name="user" property="nameEscapedForJavascript" filter="false" />"
+				});
+				google.maps.event.addListener(pin<bean:write name="user" property="facebookId" ignore="true" />, 'click', function() {
+					infoWindow.setContent('<bean:write name="user" property="nameEscapedForJavascript" filter="false" />');
+					infoWindow.open(map,pin<bean:write name="user" property="facebookId" ignore="true" />);
+				});
+</logic:iterate>
+
+        
+      }
+    </script>
 </head>
-<body>
+<body onload="initialize()">
 
-
+  <div id="util">
 	[
-	<span title="Facebook ID #<bean:write name="credentials" property="id" />"><bean:write name="credentials"
-			property="name" /></span>
-	|
-	Refresh: <html:link action="/refreshLocation.do">Location</html:link>
+	<span title="Facebook ID #<bean:write name="me" property="facebookId" />"><bean:write name="me" property="name" /></span> | Refresh:
+	<html:link action="/refreshLocation.do">Location</html:link>
 	|
 	<html:link action="/refreshFriends.do">My Friends</html:link>
-<logic:equal name="credentials" property="id" value="11803542">
+	<logic:equal name="me" property="facebookId" value="11803542">
   |
 	<html:link action="/refreshGroup.do">The Group</html:link>
-</logic:equal>
+	</logic:equal>
 	]
-	
-	<p>Longitude: <bean:write name="location" property="longitude" ignore="true" /></p>
-	<p>Latitude: <bean:write name="location" property="latitude" ignore="true"  /></p>
+	</div>
+
+  <div id="map_canvas" style="width:100%; height:100%"></div>
 
 </body>
 </html>

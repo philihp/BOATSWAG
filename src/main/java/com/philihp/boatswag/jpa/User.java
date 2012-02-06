@@ -2,8 +2,12 @@ package com.philihp.boatswag.jpa;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Random;
 
 import javax.persistence.*;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
 import static javax.persistence.AccessType.PROPERTY;
 import static javax.persistence.AccessType.FIELD;
 
@@ -16,6 +20,9 @@ import static javax.persistence.AccessType.FIELD;
 @Access(FIELD)
 @NamedQuery(name = "findUserByFacebookId", query = "SELECT u FROM User u WHERE u.facebookId = :facebookId")
 public class User extends BasicEntity implements Serializable {
+	
+	@Transient
+	private Random random = new Random();
 
 	@Id
 	@GeneratedValue
@@ -64,6 +71,10 @@ public class User extends BasicEntity implements Serializable {
 	public String getName() {
 		return name;
 	}
+	
+	public String getNameEscapedForJavascript() {
+		return StringEscapeUtils.escapeJavaScript(name);
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -96,6 +107,9 @@ public class User extends BasicEntity implements Serializable {
 	public Double getLongitude() {
 		return longitude;
 	}
+	public Double getLongitudeWithVariance() {
+		return longitude + random.nextGaussian()*0.005;
+	}
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
@@ -103,6 +117,9 @@ public class User extends BasicEntity implements Serializable {
 
 	public Double getLatitude() {
 		return latitude;
+	}
+	public Double getLatitudeWithVariance() {
+		return latitude + random.nextGaussian()*0.005;
 	}
 
 	public void setLatitude(Double latitude) {

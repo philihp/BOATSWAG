@@ -72,6 +72,13 @@ abstract class BaseAction extends Action {
 
 		return location;
 	}
+	
+	protected List<User> findUsersWithLocations() {
+		EntityManager em = EntityManagerManager.get();
+		TypedQuery<User> query = em.createQuery( "SELECT u FROM User u WHERE u.locationId IS NOT NULL AND u.longitude IS NOT NULL AND u.latitude IS NOT NULL", User.class);
+		List<User> results = query.getResultList();
+		return results;
+	}
 
 	protected User findUserByFacebookId(String facebookId) {
 		EntityManager em = EntityManagerManager.get();

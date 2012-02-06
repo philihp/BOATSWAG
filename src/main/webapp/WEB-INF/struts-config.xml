@@ -25,41 +25,16 @@
 				redirect="true" />
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">
+			<forward name="default" path="/refresh" redirect="true" />
+		</action>
+		<action path="/refresh" type="com.philihp.boatswag.action.RefreshLocation">
+			<forward name="default" path="/refresh#2.do" />
+		</action>
+		<action path="/refresh#2" type="com.philihp.boatswag.action.RefreshFriends">
 			<forward name="default" path="/" redirect="true" />
 		</action>
-
-		<action path="/logout" type="com.philihp.boatswag.action.Logout">
-			<forward name="default" path="/" redirect="true" />
-		</action>
-
-		<action path="/refreshLocation" type="com.philihp.boatswag.action.RefreshLocation">
-			<forward name="default" path="/" redirect="true" />
-		</action>
-
-		<action path="/refreshFriends" type="com.philihp.boatswag.action.RefreshFriends">
-			<forward name="default" path="/" redirect="true" />
-		</action>
-
-		<action path="/refreshGroup" type="com.philihp.boatswag.action.RefreshGroup">
-			<forward name="default" path="/" redirect="true" />
-		</action>
-
-		<action path="/refreshAll" type="com.philihp.boatswag.action.RefreshLocation">
-			<forward name="default" path="/refreshAll2.do" />
-		</action>
-		<action path="/refreshAll2" type="com.philihp.boatswag.action.RefreshGroup">
-			<forward name="default" path="/refreshAll3.do" />
-		</action>
-		<action path="/refreshAll3" type="com.philihp.boatswag.action.RefreshFriends">
-			<forward name="default" path="/" redirect="true" />
-		</action>
-
-
-
 
 		<action path="/showBoard" name="nullForm" type="com.philihp.boatswag.action.ShowBoard">
-			<forward name="login" path="/login.jsp" />
-			<forward name="survivorNo" path="/survivorNo.jsp" />
 			<forward name="default" path="/board.jsp" />
 		</action>
 

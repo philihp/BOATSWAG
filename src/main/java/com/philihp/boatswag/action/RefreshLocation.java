@@ -36,12 +36,11 @@ public class RefreshLocation extends BaseAction {
 		FBUser credentials = (FBUser) request.getSession().getAttribute("credentials");
 		
 		try {
+			if(credentials == null) throw new AuthenticationException();
 
 			System.out.println("pulling location");
 			
 			FBLocation location = fetchLocation(accessToken, credentials.getLocationId());
-
-			request.getSession().setAttribute("location", location);
 			saveLocation(credentials.getId(), location);
 
 			return mapping.findForward("default");
