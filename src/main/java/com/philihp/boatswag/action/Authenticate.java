@@ -60,9 +60,13 @@ System.out.println("authenticating");
 					}
 				}
 				
-				Date now = new Date();
-				long nowLong = now.getTime();
-				Date expiresDate = new Date(nowLong + expires*1000);
+				Date expiresDate;
+				if(expires != null) {
+					expiresDate = new Date(new Date().getTime() + expires*1000);
+				}
+				else {
+					expiresDate = new Date(Long.MAX_VALUE); 
+				}
 				
 				request.getSession().setAttribute("accessToken", accessToken);
 				request.getSession().setAttribute("accessExpires", expiresDate);
