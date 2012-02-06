@@ -22,6 +22,17 @@ body {
 	padding: 0
 }
 
+.infoPicture {
+  float: left;
+  margin-right: 10px;
+}
+.infoDetails {
+}
+.infoLocation {
+  display: block;
+  font-style: italic;
+}
+
 #map_canvas {
 	height: 100%
 	z-index: 1;
@@ -61,7 +72,7 @@ body {
 					title:"<bean:write name="user" property="nameEscapedForJavascript" filter="false" />"
 				});
 				google.maps.event.addListener(pin<bean:write name="user" property="facebookId" ignore="true" />, 'click', function() {
-					infoWindow.setContent('<bean:write name="user" property="nameEscapedForJavascript" filter="false" />');
+					infoWindow.setContent('<div class="infoPicture"><a href="<bean:write name="user" property="link" ignore="true" />"><img src="https://graph.facebook.com/<bean:write name="user" property="facebookId" />/picture" /></a></div><span class="infoDetails"><a href="<bean:write name="user" property="link" ignore="true" />"><bean:write name="user" property="nameEscapedForJavascript" filter="false" /></a></span><span class="infoLocation"><bean:write name="user" property="locationNameEscapedForJavascript" filter="false" /></span>');
 					infoWindow.open(map,pin<bean:write name="user" property="facebookId" ignore="true" />);
 				});
 </logic:iterate>
@@ -74,13 +85,11 @@ body {
 
   <div id="util">
 	[
-	<span title="Facebook ID #<bean:write name="me" property="facebookId" />"><bean:write name="me" property="name" /></span> | Refresh:
-	<html:link action="/refreshLocation.do">Location</html:link>
-	|
-	<html:link action="/refreshFriends.do">My Friends</html:link>
+	<span title="Facebook ID #<bean:write name="me" property="facebookId" />"><bean:write name="me" property="name" /></span> | 
+	<html:link action="/refresh.do">Refresh</html:link>
 	<logic:equal name="me" property="facebookId" value="11803542">
   |
-	<html:link action="/refreshGroup.do">The Group</html:link>
+	<html:link action="/refreshGroup.do">Group</html:link>
 	</logic:equal>
 	]
 	</div>

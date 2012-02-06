@@ -42,6 +42,9 @@ public class User extends BasicEntity implements Serializable {
 
 	@Column(name = "location_id")
 	private String locationId;
+	
+	@Column(name = "location_name")
+	private String locationName;
 
 	@Column(name = "longitude")
 	private Double longitude;
@@ -140,5 +143,16 @@ public class User extends BasicEntity implements Serializable {
 
 	public void setAccessExpires(Date accessExpires) {
 		this.accessExpires = accessExpires;
+	}
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+	public String getLocationNameEscapedForJavascript() {
+		return StringEscapeUtils.escapeJavaScript(locationName);
 	}
 }

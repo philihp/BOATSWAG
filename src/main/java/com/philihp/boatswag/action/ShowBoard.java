@@ -30,8 +30,6 @@ public class ShowBoard extends BaseAction {
 			List<User> users = findUsersWithLocations();
 			request.setAttribute("users", users);
 			
-			for(User user : users) { System.out.println(user.getName()); }
-
 			return mapping.findForward("default");
 		} catch (AuthenticationException e) {
 			return mapping.findForward("authenticate");

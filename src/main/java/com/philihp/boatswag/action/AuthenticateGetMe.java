@@ -55,7 +55,7 @@ public class AuthenticateGetMe extends BaseAction {
 				FBUser credentials = gson.fromJson(reader, FBUser.class);
 
 				request.getSession().setAttribute("credentials", credentials);
-				
+
 				User user = saveUser(credentials);
 				user.setAccessToken(accessToken);
 				user.setAccessExpires(expires);

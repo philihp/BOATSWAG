@@ -73,6 +73,22 @@ abstract class BaseAction extends Action {
 		return location;
 	}
 	
+	protected String fetchPictureURL(String accessToken, String facebookId) throws AuthenticationException, Exception {
+		System.out.println("facebookId = "+facebookId);
+		URL url = new URL("https://graph.facebook.com/"+facebookId+"/picture?access_token=" + accessToken);
+		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+		if (connection.getResponseCode() == 400)
+			throw new AuthenticationException();
+
+		InputStream inputStream = connection.getInputStream();
+		Reader reader = new InputStreamReader(inputStream);
+
+		Gson gson = new Gson();
+		String pictureURL = gson.fromJson(reader, String.class);
+		
+		return pictureURL;
+	}
+	
 	protected List<User> findUsersWithLocations() {
 		EntityManager em = EntityManagerManager.get();
 		TypedQuery<User> query = em.createQuery( "SELECT u FROM User u WHERE u.locationId IS NOT NULL AND u.longitude IS NOT NULL AND u.latitude IS NOT NULL", User.class);
@@ -129,6 +145,7 @@ abstract class BaseAction extends Action {
 		user.setLink(credentials.getLink());
 		user.setName(credentials.getName());
 		user.setLocationId(credentials.getLocationId());
+		user.setLocationName(credentials.getLocationName());
 		
 		return user;
 	}

@@ -10,6 +10,7 @@ public class FBUser implements Serializable {
 	private String link;
 	private String username;
 	private String locationId;
+	private String locationName;
 
 	public String getUsername() {
 		return username;
@@ -62,5 +63,13 @@ public class FBUser implements Serializable {
 
 	public void setLocationId(String locationId) {
 		this.locationId = locationId;
+	}
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
 	}
 }

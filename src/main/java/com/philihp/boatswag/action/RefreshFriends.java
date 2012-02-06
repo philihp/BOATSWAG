@@ -48,7 +48,7 @@ public class RefreshFriends extends BaseAction {
 			if (credentials == null)
 				throw new AuthenticationException();
 
-			List<User> users = fetchFriends(credentials.getId(), accessToken, groupConnections);
+			fetchFriends(credentials.getId(), accessToken, groupConnections);
 
 			System.out.println("Done refershing");
 

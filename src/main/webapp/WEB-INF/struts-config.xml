@@ -25,7 +25,10 @@
 				redirect="true" />
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">
-			<forward name="default" path="/refresh" redirect="true" />
+			<forward name="default" path="/refresh.do" redirect="true" />
+		</action>
+		<action path="/refreshGroup" type="com.philihp.boatswag.action.RefreshGroup">
+			<forward name="default" path="/" redirect="true" />
 		</action>
 		<action path="/refresh" type="com.philihp.boatswag.action.RefreshLocation">
 			<forward name="default" path="/refresh#2.do" />
@@ -37,7 +40,7 @@
 		<action path="/showBoard" name="nullForm" type="com.philihp.boatswag.action.ShowBoard">
 			<forward name="default" path="/board.jsp" />
 		</action>
-
+		
 	</action-mappings>
 
 	<message-resources parameter="ApplicationResources" />

@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
@@ -34,6 +35,12 @@ public class FBUserDeserializer implements
 				String locationId = location.get("id").getAsString();
 				if(locationId != null && false==locationId.equals(""))
 					credentials.setLocationId(locationId);
+				JsonElement nameElement = location.get("name");
+				if(nameElement != null && false==nameElement instanceof JsonNull) {
+					String locationName = nameElement.getAsString();
+					if(locationName != null && false==locationName.equals(""))
+						credentials.setLocationName(locationName);
+				}
 				// we could get name here, but instead just get it later.
 			}
 			
