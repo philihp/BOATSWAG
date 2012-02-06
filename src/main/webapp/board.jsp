@@ -38,8 +38,11 @@ body {
 	z-index: 1;
 }
 #util {
+
+display: none;
+
   position: fixed;
-  bottom: 2.5em;
+  bottom: 1.5em;
   right: 0.5em;
   padding: 5px;
   border: 1px solid yellow;
