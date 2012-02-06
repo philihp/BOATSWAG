@@ -21,13 +21,15 @@ public class ShowBoard extends BaseAction {
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		FBUser credentials = (FBUser)request.getSession().getAttribute("credentials");
+		String groupId = (String) getServlet().getServletContext().getAttribute("membership.group.id");
+		
 		try {
 			if (credentials == null)
 				throw new AuthenticationException();
 			User me = findUserByFacebookId(credentials.getId());
 			request.setAttribute("me", me);
 			
-			List<User> users = findUsersWithLocations();
+			List<User> users = findUsersWithLocations(groupId);
 			request.setAttribute("users", users);
 			
 			return mapping.findForward("default");

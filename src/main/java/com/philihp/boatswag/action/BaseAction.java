@@ -89,9 +89,10 @@ abstract class BaseAction extends Action {
 		return pictureURL;
 	}
 	
-	protected List<User> findUsersWithLocations() {
+	protected List<User> findUsersWithLocations(String groupId) {
 		EntityManager em = EntityManagerManager.get();
-		TypedQuery<User> query = em.createQuery( "SELECT u FROM User u WHERE u.locationId IS NOT NULL AND u.longitude IS NOT NULL AND u.latitude IS NOT NULL", User.class);
+		TypedQuery<User> query = em.createQuery( "SELECT u FROM User u, Connection c WHERE c.facebookPredicateId = u.facebookId AND c.facebookSubjectId = :groupId AND u.locationId IS NOT NULL AND u.longitude IS NOT NULL AND u.latitude IS NOT NULL", User.class);
+		query.setParameter("groupId", groupId);
 		List<User> results = query.getResultList();
 		return results;
 	}
