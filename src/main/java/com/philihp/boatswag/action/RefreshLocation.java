@@ -38,10 +38,14 @@ public class RefreshLocation extends BaseAction {
 		try {
 			if(credentials == null) throw new AuthenticationException();
 
-			System.out.println("pulling location");
-			
-			FBLocation location = fetchLocation(accessToken, credentials.getLocationId());
-			saveLocation(credentials.getId(), location);
+			if(credentials.getLocationId() != null) {
+				System.out.println("pulling location for " + credentials.getId());
+				FBLocation location = fetchLocation(accessToken, credentials.getLocationId());
+				saveLocation(credentials.getId(), location);
+			}
+			else {
+				System.out.println("pulling location for "+credentials.getId() + " -- no location!");
+			}
 
 			return mapping.findForward("default");
 		}

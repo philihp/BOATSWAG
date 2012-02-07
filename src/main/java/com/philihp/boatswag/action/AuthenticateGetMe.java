@@ -1,5 +1,6 @@
 package com.philihp.boatswag.action;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

@@ -63,7 +63,12 @@ display: none;
       function initialize() {
     	  
         var myOptions = {
-          center: new google.maps.LatLng(<bean:write name="me" property="latitude" />, <bean:write name="me" property="longitude" />),
+<logic:empty name="me" property="latitude">
+					center: new google.maps.LatLng(38.2300706544397, -97.33423129957447),
+</logic:empty>
+<logic:notEmpty name="me" property="latitude">
+					center: new google.maps.LatLng(<bean:write name="me" property="latitude" />, <bean:write name="me" property="longitude" />),
+</logic:notEmpty>
           zoom: 4,
           mapTypeId: google.maps.MapTypeId.TERRAIN
         };
