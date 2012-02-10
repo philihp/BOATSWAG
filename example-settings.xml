@@ -20,6 +20,9 @@
         <facebook.id>12345</facebook.id>
         <facebook.secret>1a2b3c4d5e6f1a2b3c4d5e6f1a2b3c4d5e6f</facebook.secret>
         <facebook.redirect>http://boatswag.com/authenticate.do</facebook.redirect>
+        <airbnb.id>12345</airbnb.id>
+        <airbnb.secret>1a2b3c4d5e6f1a2b3c4d5e6f1a2b3c4d5e6f</airbnb.secret>
+        <airbnb.redirect>http://philihp.com/airbnb-radar/authenticate.do</airbnb.redirect>
       </properties>
     </profile>
   </profiles>
