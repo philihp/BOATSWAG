@@ -21,7 +21,7 @@
 		<action path="/authenticate" type="com.philihp.boatswag.action.Authenticate">
 			<forward name="default" path="/authenticateGetMe.do" />
 			<forward name="facebook"
-				path="https://www.facebook.com/dialog/oauth?client_id=${facebook.id}&amp;scope=user_location,user_groups,friends_location,offline_access&amp;redirect_uri=${facebook.redirect}"
+				path="https://www.facebook.com/dialog/oauth?client_id=${airbnb.id}&amp;scope=user_location,user_groups,friends_location,offline_access&amp;redirect_uri=${airbnb.redirect}"
 				redirect="true" />
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">

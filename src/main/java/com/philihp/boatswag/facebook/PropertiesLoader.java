@@ -25,11 +25,11 @@ public class PropertiesLoader implements ServletContextListener {
 			//sets in case maven filtering didn't happen (because we're running in eclipse)
 			//this is a hack because m2eclipse doesn't do filtering in wtp
 			
-			if (value.equals("${facebook.id}"))
+			if (value.equals("${airbnb.id}"))
 				value = System.getenv("facebook.id");
-			else if (value.equals("${facebook.secret}"))
+			else if (value.equals("${airbnb.secret}"))
 				value = System.getenv("facebook.secret");
-			else if (value.equals("${facebook.redirect}"))
+			else if (value.equals("${airbnb.redirect}"))
 				value = System.getenv("facebook.redirect");
 			
 			if(value == null) {

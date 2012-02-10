@@ -78,11 +78,11 @@ System.out.println("authenticating");
 		} else {
 			ActionForward forward = mapping.findForward("facebook");
 			String path = forward.getPath();
-			if((path.indexOf("${facebook.id}") > 0) || (path.indexOf("${facebook.redirect}") > 0)) {
+			if((path.indexOf("${airbnb.id}") > 0) || (path.indexOf("${airbnb.redirect}") > 0)) {
 				//this is a hack because m2eclipse doesn't do filtering in wtp
-				path = path.replaceAll("\\$\\{facebook.id\\}", (String)servletContext.getAttribute("facebook.id"));
-				path = path.replaceAll("\\$\\{facebook.secret\\}", (String)servletContext.getAttribute("facebook.secret"));
-				path = path.replaceAll("\\$\\{facebook.redirect\\}", (String)servletContext.getAttribute("facebook.redirect"));
+				path = path.replaceAll("\\$\\{airbnb.id\\}", (String)servletContext.getAttribute("airbnb.id"));
+				path = path.replaceAll("\\$\\{airbnb.secret\\}", (String)servletContext.getAttribute("airbnb.secret"));
+				path = path.replaceAll("\\$\\{airbnb.redirect\\}", (String)servletContext.getAttribute("airbnb.redirect"));
 				forward = new ActionForward(path, forward.getRedirect());
 			}
 			return forward;
