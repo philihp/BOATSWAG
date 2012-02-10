@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Airbnb Radar</title>
+<title>Airbnb Atlas</title>
 <style>
 body {
 	font: 81.25%/1.5 Arial, Helvetica, sans-serif;

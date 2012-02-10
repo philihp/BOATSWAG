@@ -5,7 +5,7 @@
 	<artifactId>airbnb-radar</artifactId>
 	<version>1</version>
 	<packaging>war</packaging>
-	<name>boatswag</name>
+	<name>air-atlas</name>
 	<build>
 		<resources>
 			<resource>
@@ -13,7 +13,7 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-		<finalName>airbnb-radar</finalName>
+		<finalName>air-atlas</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -105,5 +105,5 @@
 		</repository>
 	</repositories>
 
-	<description>Airbnb Radar</description>
+	<description>AirAtlas</description>
 </project>
