@@ -1,5 +1,5 @@
 <Context>
-	<Resource name="jdbc/BoatswagDB"
+	<Resource name="jdbc/AirbnbDB"
 		auth="Container"
 		type="javax.sql.DataSource"
 		description="Database Connection"

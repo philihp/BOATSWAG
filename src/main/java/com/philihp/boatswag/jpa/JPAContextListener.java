@@ -23,7 +23,7 @@ public class JPAContextListener implements ServletContextListener {
 	}
 
 	public void contextInitialized(ServletContextEvent event) {
-		emf = Persistence.createEntityManagerFactory("boatswag-pu");
+		emf = Persistence.createEntityManagerFactory("airatlas-pu");
 		event.getServletContext().setAttribute("emf", emf);
 	}
 

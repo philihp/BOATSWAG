@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="boatswag-pu" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="airbnb-pu" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<non-jta-data-source>java:comp/env/jdbc/BoatswagDB</non-jta-data-source>
+		<non-jta-data-source>java:comp/env/jdbc/AirbnbDB</non-jta-data-source>
 		<class>com.philihp.boatswag.jpa.BasicEntity</class>
 		<class>com.philihp.boatswag.jpa.User</class>
 		<class>com.philihp.boatswag.jpa.Connection</class>
