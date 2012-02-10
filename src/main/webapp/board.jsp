@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Airbnb Atlas</title>
+<title>Air Atlas</title>
 <style>
 body {
 	font: 81.25%/1.5 Arial, Helvetica, sans-serif;
