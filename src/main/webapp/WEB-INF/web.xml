@@ -12,7 +12,7 @@
 	</resource-env-ref>
 	<persistence-context-ref>
 		<persistence-context-ref-name>persistence/em</persistence-context-ref-name>
-		<persistence-unit-name>boatswag-pu</persistence-unit-name>
+		<persistence-unit-name>airbnb-pu</persistence-unit-name>
 	</persistence-context-ref>
 	<listener>
 		<listener-class>com.philihp.boatswag.jpa.JPAContextListener</listener-class>
