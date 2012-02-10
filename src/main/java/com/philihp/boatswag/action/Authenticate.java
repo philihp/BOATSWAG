@@ -35,11 +35,11 @@ System.out.println("authenticating");
 
 			URL url = new URL(
 					"https://graph.facebook.com/oauth/access_token?client_id="
-							+ servletContext.getAttribute("facebook.id")
+							+ servletContext.getAttribute("airbnb.id")
 							+ "&redirect_uri="
-							+ servletContext.getAttribute("facebook.redirect")
+							+ servletContext.getAttribute("airbnb.redirect")
 							+ "&client_secret="
-							+ servletContext.getAttribute("facebook.secret")
+							+ servletContext.getAttribute("airbnb.secret")
 							+ "&code=" + code);
 			try {
 				String result = readURL(url);
