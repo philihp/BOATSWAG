@@ -16,7 +16,7 @@ import static javax.persistence.AccessType.FIELD;
  * 
  */
 @Entity(name = "User")
-@Table(name = "boatswag_user")
+@Table(name = "airbnb_user")
 @Access(FIELD)
 @NamedQuery(name = "findUserByFacebookId", query = "SELECT u FROM User u WHERE u.facebookId = :facebookId")
 public class User extends BasicEntity implements Serializable {

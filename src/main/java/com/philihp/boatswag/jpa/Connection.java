@@ -15,7 +15,7 @@ import static javax.persistence.AccessType.FIELD;
  * 
  */
 @Entity(name = "Connection")
-@Table(name = "boatswag_connection")
+@Table(name = "airbnb_connection")
 @NamedQueries({
 		@NamedQuery(name = "findConnectionsBySubjectId", query = "SELECT c FROM Connection c WHERE c.facebookSubjectId = :facebookSubjectId"),
 		@NamedQuery(name = "findConnectionsByPredicateId", query = "SELECT c FROM Connection c WHERE c.facebookPredicateId = :facebookPredicateId"),

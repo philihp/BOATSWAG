@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>#BOATSWAG</title>
+<title>Airbnb Radar</title>
 <style>
 body {
 	font: 81.25%/1.5 Arial, Helvetica, sans-serif;
@@ -38,9 +38,6 @@ body {
 	z-index: 1;
 }
 #util {
-
-display: none;
-
   position: fixed;
   bottom: 1.5em;
   right: 0.5em;
@@ -78,9 +75,9 @@ display: none;
         var swBound = new google.maps.LatLng(49.0,-122.0);
         var neBound = new google.maps.LatLng(54.0,-65.4);
         var bounds = new google.maps.LatLngBounds(swBound, neBound);
-        var srcImage = 'boatswag.png';
+        var srcImage = 'overlay_title.png';
 
-        overlay = new TitleOverlay(bounds, srcImage, map);
+        //overlay = new TitleOverlay(bounds, srcImage, map);
         
         var infoWindow = new google.maps.InfoWindow({ });
         
@@ -139,7 +136,7 @@ display: none;
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-27506789-2']);
+  _gaq.push(['_setAccount', 'UA-27506789-3']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -154,12 +151,9 @@ display: none;
 
   <div id="util">
 	[
-	<span title="Facebook ID #<bean:write name="me" property="facebookId" />"><bean:write name="me" property="name" /></span> | 
-	<html:link action="/refresh.do">Refresh</html:link>
-	<logic:equal name="me" property="facebookId" value="11803542">
-  |
-	<html:link action="/refreshGroup.do">Group</html:link>
-	</logic:equal>
+	<span title="Facebook ID #<bean:write name="me" property="facebookId" />"><bean:write name="me" property="name" /></span>
+	| 
+	<html:link action="/refreshGroup.do">Refresh Group</html:link>
 	]
 	</div>
 
