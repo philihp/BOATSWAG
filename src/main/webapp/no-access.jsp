@@ -26,9 +26,11 @@ body {
 </head>
 <body>
 
-<img src="/images/405.jpg" />
+<h1>Forbidden</h1>
 
-<p>You must be a member of the AirFamily group to use this app.</p>
+<p>You must be a member of the AirFamily group to use this app. It doesn't look like you are, so that sucks, but look at this cat!</p>
+
+<img src="/images/405.jpg" />
 
 </body>
 </html>
