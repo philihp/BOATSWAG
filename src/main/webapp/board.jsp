@@ -149,6 +149,7 @@ body {
 </head>
 <body onload="initialize()">
 
+<!--
   <div id="util">
 	[
 	<span title="Facebook ID #<bean:write name="me" property="facebookId" />"><bean:write name="me" property="name" /></span>
@@ -156,6 +157,7 @@ body {
 	<html:link action="/refreshGroup.do">Refresh Group</html:link>
 	]
 	</div>
+-->
 
   <div id="map_canvas" style="width:100%; height:100%"></div>
 
