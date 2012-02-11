@@ -25,8 +25,13 @@
 				redirect="true" />
 		</action>
 		<action path="/authenticateGetMe" type="com.philihp.boatswag.action.AuthenticateGetMe">
-			<forward name="default" path="/refresh.do" redirect="true" />
+			<forward name="default" path="/authenticateGetGroup.do" />
 		</action>
+		<action path="/authenticateGetGroup" type="com.philihp.boatswag.action.AuthenticateGetGroups">
+			<forward name="default" path="/refresh.do" redirect="true" />
+			<forward name="not-in-group" path="/no-access.jsp" />
+		</action>
+		
 		<action path="/refreshGroup" type="com.philihp.boatswag.action.RefreshGroup">
 			<forward name="default" path="/" redirect="true" />
 		</action>
